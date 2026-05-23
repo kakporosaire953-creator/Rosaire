@@ -2,21 +2,45 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageTransition } from "@/components/PageTransition";
 import { useTranslation } from "@/context/TranslationContext";
-import { Github, MapPin, CheckCircle2, ArrowUpRight, Send } from "lucide-react";
+import { Github, MapPin, CheckCircle2, ArrowUpRight, Send, AlertCircle } from "lucide-react";
 
 export function ContactPage() {
   const { lang } = useTranslation();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
-    setTimeout(() => {
-      setSending(false);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json() as { success?: boolean; error?: string };
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error ?? "Unknown error");
+      }
+
       setSubmitted(true);
-    }, 1400);
+      setForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "error";
+      setError(
+        lang === "fr"
+          ? `Échec de l'envoi — ${msg}. Veuillez réessayer ou me contacter directement.`
+          : `Send failed — ${msg}. Please retry or contact me directly.`
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   const fr = {
@@ -27,7 +51,8 @@ export function ContactPage() {
     messagePlaceholder: "Décrivez votre projet ou votre demande...",
     submit: "Envoyer le message",
     sending: "Envoi en cours...",
-    success: "Message envoyé. Je vous recontacte sous 24h.",
+    successTitle: "Message bien reçu !",
+    successSub: "Je vous recontacte sous 24h.",
     location: "Cotonou, Bénin",
     available: "Disponible pour missions freelance",
     whatsapp: "WhatsApp — Réponse rapide",
@@ -43,7 +68,8 @@ export function ContactPage() {
     messagePlaceholder: "Describe your project or request...",
     submit: "Send message",
     sending: "Sending...",
-    success: "Message sent. I'll get back to you within 24h.",
+    successTitle: "Message received!",
+    successSub: "I'll get back to you within 24h.",
     location: "Cotonou, Benin",
     available: "Available for freelance projects",
     whatsapp: "WhatsApp — Fast response",
@@ -65,7 +91,7 @@ export function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               className="font-mono text-xs text-primary tracking-widest uppercase mb-3"
             >
-              — {lang === "fr" ? "Communication" : "Communication"}
+              — Communication
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
@@ -87,14 +113,14 @@ export function ContactPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
 
-            {/* Left: Info cards */}
+            {/* ── Left: Info cards ── */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 }}
               className="lg:col-span-2 space-y-4"
             >
-              {/* Status card */}
+              {/* Status */}
               <div className="border border-border/50 rounded-2xl p-6 bg-card">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-dot" />
@@ -167,7 +193,7 @@ export function ContactPage() {
               </a>
             </motion.div>
 
-            {/* Right: Form */}
+            {/* ── Right: Form ── */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -182,15 +208,27 @@ export function ContactPage() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="flex flex-col items-center justify-center h-full min-h-[300px] text-center gap-6"
                   >
-                    <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 300, delay: 0.1 }}
+                      className="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center"
+                    >
                       <CheckCircle2 className="w-8 h-8 text-emerald-500" />
-                    </div>
+                    </motion.div>
                     <div>
-                      <div className="font-display font-bold text-xl text-foreground mb-2">{t.success}</div>
-                      <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">
-                        {lang === "fr" ? "Transmission réussie" : "Transmission successful"}
+                      <div className="font-display font-bold text-xl text-foreground mb-2">{t.successTitle}</div>
+                      <div className="text-muted-foreground text-sm">{t.successSub}</div>
+                      <div className="font-mono text-xs text-primary/50 uppercase tracking-wider mt-3">
+                        {lang === "fr" ? "Transmission réussie ✓" : "Transmission successful ✓"}
                       </div>
                     </div>
+                    <button
+                      onClick={() => setSubmitted(false)}
+                      className="font-mono text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
+                    >
+                      {lang === "fr" ? "Envoyer un autre message" : "Send another message"}
+                    </button>
                   </motion.div>
                 ) : (
                   <motion.form
@@ -201,7 +239,7 @@ export function ContactPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label className="block font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-2">
-                          {lang === "fr" ? "Nom" : "Name"}
+                          {lang === "fr" ? "Nom" : "Name"} <span className="text-primary">*</span>
                         </label>
                         <input
                           type="text"
@@ -215,7 +253,7 @@ export function ContactPage() {
                       </div>
                       <div>
                         <label className="block font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-2">
-                          Email
+                          Email <span className="text-primary">*</span>
                         </label>
                         <input
                           type="email"
@@ -228,9 +266,10 @@ export function ContactPage() {
                         />
                       </div>
                     </div>
+
                     <div>
                       <label className="block font-mono text-[10px] text-muted-foreground uppercase tracking-widest mb-2">
-                        Message
+                        Message <span className="text-primary">*</span>
                       </label>
                       <textarea
                         required
@@ -242,14 +281,36 @@ export function ContactPage() {
                         className="w-full px-4 py-3 rounded-xl border border-border/60 bg-background text-foreground placeholder:text-muted-foreground text-sm font-medium focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/20 transition-all resize-none"
                       />
                     </div>
+
+                    {/* Error message */}
+                    <AnimatePresence>
+                      {error && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -8 }}
+                          className="flex items-start gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 text-red-400"
+                        >
+                          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                          <span className="text-sm">{error}</span>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
                     <button
                       type="submit"
                       data-testid="btn-submit-contact"
                       disabled={sending}
-                      className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-primary text-primary-foreground font-display font-bold text-sm shadow-[0_0_20px_rgba(255,110,0,0.25)] hover:shadow-[0_0_30px_rgba(255,110,0,0.4)] disabled:opacity-70 transition-all duration-300"
+                      className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-primary text-primary-foreground font-display font-bold text-sm shadow-[0_0_20px_rgba(255,110,0,0.25)] hover:shadow-[0_0_30px_rgba(255,110,0,0.4)] disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300"
                     >
                       {sending ? (
-                        <span className="font-mono text-xs">{t.sending}</span>
+                        <>
+                          <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                          </svg>
+                          <span className="font-mono text-xs">{t.sending}</span>
+                        </>
                       ) : (
                         <>
                           <Send className="w-4 h-4" />
@@ -257,6 +318,12 @@ export function ContactPage() {
                         </>
                       )}
                     </button>
+
+                    <p className="text-center font-mono text-[10px] text-muted-foreground/50">
+                      {lang === "fr"
+                        ? "Vos données ne sont pas partagées avec des tiers."
+                        : "Your data is never shared with third parties."}
+                    </p>
                   </motion.form>
                 )}
               </AnimatePresence>
