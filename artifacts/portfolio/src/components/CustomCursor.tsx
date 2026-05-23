@@ -1,68 +1,88 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 export function CustomCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+  const [pos, setPos] = useState({ x: -100, y: -100 });
+  const [hovering, setHovering] = useState(false);
+  const [clicking, setClicking] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const rafRef = useRef<number>(0);
+  const targetRef = useRef({ x: -100, y: -100 });
 
   useEffect(() => {
-    const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    const onMove = (e: MouseEvent) => {
+      targetRef.current = { x: e.clientX, y: e.clientY };
+    };
+    const onDown = () => setClicking(true);
+    const onUp = () => setClicking(false);
+    const onLeave = () => setHidden(true);
+    const onEnter = () => setHidden(false);
+
+    const onOver = (e: MouseEvent) => {
+      const el = e.target as HTMLElement;
+      const isInteractive =
+        el.tagName === "A" ||
+        el.tagName === "BUTTON" ||
+        el.closest("a") ||
+        el.closest("button") ||
+        el.getAttribute("role") === "button" ||
+        el.classList.contains("interactive");
+      setHovering(!!isInteractive);
     };
 
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (
-        target.tagName.toLowerCase() === "a" ||
-        target.tagName.toLowerCase() === "button" ||
-        target.closest("a") ||
-        target.closest("button") ||
-        target.classList.contains("interactive")
-      ) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
-    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseover", onOver);
+    window.addEventListener("mousedown", onDown);
+    window.addEventListener("mouseup", onUp);
+    document.documentElement.addEventListener("mouseleave", onLeave);
+    document.documentElement.addEventListener("mouseenter", onEnter);
 
-    window.addEventListener("mousemove", updateMousePosition);
-    window.addEventListener("mouseover", handleMouseOver);
+    const animate = () => {
+      setPos({ x: targetRef.current.x, y: targetRef.current.y });
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
 
     return () => {
-      window.removeEventListener("mousemove", updateMousePosition);
-      window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseover", onOver);
+      window.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mouseup", onUp);
+      document.documentElement.removeEventListener("mouseleave", onLeave);
+      document.documentElement.removeEventListener("mouseenter", onEnter);
+      cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
+  if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) return null;
+
   return (
     <>
+      {/* Inner dot */}
       <motion.div
-        className="fixed top-0 left-0 w-4 h-4 bg-primary rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full bg-primary"
         animate={{
-          x: mousePosition.x - 8,
-          y: mousePosition.y - 8,
-          scale: isHovering ? 2 : 1,
+          x: pos.x - 4,
+          y: pos.y - 4,
+          width: clicking ? 6 : hovering ? 8 : 8,
+          height: clicking ? 6 : hovering ? 8 : 8,
+          opacity: hidden ? 0 : 1,
         }}
-        transition={{
-          type: "spring",
-          stiffness: 500,
-          damping: 28,
-          mass: 2,
-        }}
+        transition={{ type: "tween", duration: 0 }}
       />
+
+      {/* Outer ring */}
       <motion.div
-        className="fixed top-0 left-0 w-10 h-10 border border-primary/50 rounded-full pointer-events-none z-[9998]"
+        className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full border border-primary/50"
         animate={{
-          x: mousePosition.x - 20,
-          y: mousePosition.y - 20,
-          scale: isHovering ? 1.5 : 1,
+          x: pos.x - (hovering ? 20 : 16),
+          y: pos.y - (hovering ? 20 : 16),
+          width: clicking ? 24 : hovering ? 40 : 32,
+          height: clicking ? 24 : hovering ? 40 : 32,
+          opacity: hidden ? 0 : hovering ? 0.8 : 0.4,
+          borderColor: hovering ? "hsl(var(--primary) / 0.8)" : "hsl(var(--primary) / 0.4)",
         }}
-        transition={{
-          type: "spring",
-          stiffness: 250,
-          damping: 20,
-          mass: 1,
-        }}
+        transition={{ type: "spring", stiffness: 200, damping: 22, mass: 0.5 }}
       />
     </>
   );
