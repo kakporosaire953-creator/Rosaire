@@ -3,6 +3,7 @@ import { FloatingNav } from "./FloatingNav";
 import { CustomCursor } from "./CustomCursor";
 import { NeuralBackground } from "./NeuralBackground";
 import { AIAssistant } from "./AIAssistant";
+import { Logo } from "./Logo";
 import { useTranslation } from "@/context/TranslationContext";
 import { useTheme } from "./ThemeProvider";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,7 +13,7 @@ import { useLocation } from "wouter";
 const BOOT_LINES_FR = [
   "RK_OS v2.0 — AFRICAN FUTURISM EDITION",
   "Chargement african_futurism.module...",
-  "Connexion réseau neural...",
+  "Connexion réseau neural — [OK]",
   "Identité confirmée : ROSAIRE KAKPO",
   "Prêt.",
 ];
@@ -20,7 +21,7 @@ const BOOT_LINES_FR = [
 const BOOT_LINES_EN = [
   "RK_OS v2.0 — AFRICAN FUTURISM EDITION",
   "Loading african_futurism.module...",
-  "Connecting neural network...",
+  "Neural network connected — [OK]",
   "Identity confirmed: ROSAIRE KAKPO",
   "Ready.",
 ];
@@ -42,9 +43,9 @@ export function Layout({ children }: { children: ReactNode }) {
         idx++;
       } else {
         clearInterval(interval);
-        setTimeout(() => setLoading(false), 500);
+        setTimeout(() => setLoading(false), 400);
       }
-    }, 300);
+    }, 280);
     return () => clearInterval(interval);
   }, []);
 
@@ -68,27 +69,33 @@ export function Layout({ children }: { children: ReactNode }) {
           <motion.div
             key="loader"
             className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-background"
-            exit={{ opacity: 0, filter: "blur(12px)", scale: 1.04 }}
-            transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+            exit={{ opacity: 0, filter: "blur(16px)", scale: 1.05 }}
+            transition={{ duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
           >
-            {/* Boot loader neural lines in bg */}
-            <div className="absolute inset-0 opacity-20" style={{
-              backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(255,110,0,0.15) 30px, rgba(255,110,0,0.15) 31px)`,
-            }} />
+            {/* Scan lines */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,110,0,0.04) 28px, rgba(255,110,0,0.04) 29px)`,
+              }}
+            />
 
+            {/* Logo centered */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-8 font-display font-bold text-5xl tracking-tight text-foreground relative"
+              initial={{ opacity: 0, scale: 0.85, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="mb-10"
             >
-              RK<span className="text-primary">.</span>
+              <Logo size="xl" showWordmark={false} />
             </motion.div>
 
+            {/* Boot lines */}
             <div className="font-mono text-xs space-y-2 text-left w-80 mb-10">
               {bootLines.map((line, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: -10 }}
+                  initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
                   className={i === bootLines.length - 1 ? "text-primary" : "text-muted-foreground"}
                 >
@@ -98,12 +105,13 @@ export function Layout({ children }: { children: ReactNode }) {
               <span className="inline-block w-2 h-3.5 bg-primary blink ml-5" />
             </div>
 
+            {/* Progress bar */}
             <div className="w-80 h-px bg-border/30 overflow-hidden relative">
               <motion.div
                 className="absolute inset-y-0 left-0 bg-primary"
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
-                transition={{ duration: 1.6, ease: [0.76, 0, 0.24, 1] }}
+                transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
               />
             </div>
           </motion.div>
@@ -115,16 +123,21 @@ export function Layout({ children }: { children: ReactNode }) {
             transition={{ duration: 0.5 }}
             className="relative"
           >
-            {/* Neural background — global, always present */}
+            {/* Global neural network canvas */}
             <NeuralBackground />
 
             {/* Top bar */}
-            <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-4 border-b border-border/20 backdrop-blur-xl bg-background/60">
-              <div className="font-mono text-xs text-muted-foreground tracking-widest uppercase">
-                RK_OS — <span className="text-primary">{routeLabel[location] ?? "—"}</span>
+            <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 md:px-10 py-3 border-b border-border/20 backdrop-blur-xl bg-background/60">
+              <Logo size="sm" showWordmark={true} />
+
+              <div className="flex items-center gap-1 font-mono text-xs text-muted-foreground">
+                <span className="text-primary/40 hidden sm:block">—</span>
+                <span className="hidden sm:block tracking-widest uppercase">
+                  {routeLabel[location] ?? ""}
+                </span>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <button
                   data-testid="btn-lang-toggle"
                   onClick={() => setLang(lang === "fr" ? "en" : "fr")}
@@ -144,7 +157,6 @@ export function Layout({ children }: { children: ReactNode }) {
               </div>
             </header>
 
-            {/* Main */}
             <main className="pt-14 relative z-10">
               {children}
             </main>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -58,7 +58,7 @@
   --input: 20 6% 5% / 0.07;
   --ring: 26 100% 47%;
   --app-font-sans: 'DM Sans', system-ui, sans-serif;
-  --app-font-display: 'Space Grotesk', system-ui, sans-serif;
+  --app-font-display: 'Bricolage Grotesque', system-ui, sans-serif;
   --app-font-mono: 'JetBrains Mono', monospace;
   --radius: 0.625rem;
 }
@@ -88,20 +88,16 @@
 
 @layer base {
   * { @apply border-border box-border; }
-
   html { scroll-behavior: smooth; }
-
   body {
     @apply bg-background text-foreground antialiased overflow-x-hidden;
     font-family: var(--app-font-sans);
     cursor: none;
   }
-
   ::selection {
     background: hsl(var(--primary) / 0.2);
     color: hsl(var(--foreground));
   }
-
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
@@ -111,9 +107,9 @@
 }
 
 .font-display { font-family: var(--app-font-display); }
-.font-mono { font-family: var(--app-font-mono); }
+.font-mono    { font-family: var(--app-font-mono); }
 
-/* Neural / grid bg */
+/* Grid background */
 .grid-bg {
   background-image:
     linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
@@ -127,14 +123,13 @@
   background-size: 64px 64px;
 }
 
-/* Text effects */
+/* Text helpers */
 .gradient-text-gold {
   background: linear-gradient(135deg, #FFB347 0%, hsl(var(--primary)) 50%, #FF6B00 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
 .gradient-text {
   background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--primary)) 100%);
   -webkit-background-clip: text;
@@ -159,7 +154,10 @@
 .float { animation: float-kf 4s ease-in-out infinite; }
 
 @keyframes spin-slow { to { transform: rotate(360deg); } }
-.spin-slow { animation: spin-slow 20s linear infinite; }
+.spin-slow { animation: spin-slow 22s linear infinite; }
+
+@keyframes spin-slow-reverse { to { transform: rotate(-360deg); } }
+.spin-slow-reverse { animation: spin-slow-reverse 16s linear infinite; }
 
 @keyframes shimmer-kf {
   0% { background-position: -200% center; }
@@ -174,10 +172,10 @@
   animation: shimmer-kf 3s linear infinite;
 }
 
-/* Glow effects */
-.glow-primary { box-shadow: 0 0 30px hsl(var(--primary) / 0.25); }
+/* Glow */
+.glow-primary    { box-shadow: 0 0 30px hsl(var(--primary) / 0.25); }
 .glow-primary-lg { box-shadow: 0 0 60px hsl(var(--primary) / 0.35); }
-.text-glow { text-shadow: 0 0 40px hsl(var(--primary) / 0.4); }
+.text-glow       { text-shadow: 0 0 40px hsl(var(--primary) / 0.4); }
 
 /* Ambient orb */
 .ambient-orb {
@@ -188,7 +186,7 @@
 }
 .dark .ambient-orb { opacity: 0.18; }
 
-/* OS window styles */
+/* OS windows */
 .os-window {
   background: rgba(15,15,15,0.9);
   backdrop-filter: blur(20px);
@@ -197,18 +195,25 @@
   box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
 }
 
-/* AI Assistant */
+/* AI assistant */
 @keyframes ai-pulse {
   0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4); }
-  50% { box-shadow: 0 0 0 8px hsl(var(--primary) / 0); }
+  50%       { box-shadow: 0 0 0 8px hsl(var(--primary) / 0); }
 }
 .ai-pulse { animation: ai-pulse 2.5s ease-in-out infinite; }
 
-@keyframes typing-dots {
-  0%, 20% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
-}
+@keyframes typing-dots { 0%, 20% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 .typing-dot-1 { animation: typing-dots 1.4s ease-in-out infinite 0s; }
 .typing-dot-2 { animation: typing-dots 1.4s ease-in-out infinite 0.2s; }
 .typing-dot-3 { animation: typing-dots 1.4s ease-in-out infinite 0.4s; }
+
+/* Logo arc spin */
+@keyframes logo-arc-spin { to { transform: rotate(360deg); } }
+.logo-arc { animation: logo-arc-spin 20s linear infinite; transform-origin: center; }
+
+/* Logo node pulse */
+@keyframes logo-node-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.logo-node { animation: logo-node-pulse 2s ease-in-out infinite; }
