@@ -1,6 +1,6 @@
 {
-  "buildCommand": "cd artifacts/api-server && npm run build",
-  "installCommand": "cd artifacts/api-server && npm install",
+  "buildCommand": "npm --prefix artifacts/api-server run build",
+  "installCommand": "npm --prefix artifacts/api-server install",
   "outputDirectory": "artifacts/api-server/dist",
   "rewrites": [
     {
