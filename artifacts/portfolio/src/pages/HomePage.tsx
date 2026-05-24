@@ -91,9 +91,9 @@ export function HomePage() {
         <div className="absolute inset-0 grid-bg pointer-events-none" />
 
         {/* Main hero */}
-        <div className="relative z-10 flex-1 flex items-center px-6 md:px-12 lg:px-20">
+        <div className="relative z-10 flex-1 flex items-center px-4 sm:px-6 md:px-12 lg:px-20 pt-4 md:pt-0">
           <div className="w-full max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-20 items-center">
 
               {/* ── Left column ── */}
               <div>
@@ -115,8 +115,8 @@ export function HomePage() {
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="font-display leading-none tracking-tighter text-foreground mb-6"
-                  style={{ fontSize: "clamp(3.5rem,9vw,7.5rem)", fontWeight: 800 }}
+                  className="font-display leading-none tracking-tighter text-foreground mb-4 md:mb-6"
+                  style={{ fontSize: "clamp(2.6rem,9vw,7.5rem)", fontWeight: 800 }}
                 >
                   ROSAIRE
                   <br />
@@ -148,7 +148,7 @@ export function HomePage() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="flex flex-wrap gap-4 mb-16"
+                  className="flex flex-wrap gap-3 mb-8 md:mb-16"
                 >
                   <Link href="/projects">
                     <motion.div
@@ -180,7 +180,7 @@ export function HomePage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.65 }}
-                  className="flex items-center gap-8 pt-6 border-t border-border/40"
+                  className="flex items-center gap-4 sm:gap-8 pt-6 border-t border-border/40"
                 >
                   {stats.map((stat, i) => (
                     <div key={i}>

@@ -4,14 +4,14 @@ import { Home, Layers, Cpu, Clock, Send, Briefcase, FlaskConical, Terminal } fro
 import { useTranslation } from "@/context/TranslationContext";
 
 const links = [
-  { href: "/", icon: Home, labelFr: "Accueil", labelEn: "Home" },
-  { href: "/projects", icon: Layers, labelFr: "Projets", labelEn: "Projects" },
-  { href: "/skills", icon: Cpu, labelFr: "Skills", labelEn: "Skills" },
-  { href: "/experience", icon: Clock, labelFr: "Parcours", labelEn: "Timeline" },
-  { href: "/hire", icon: Briefcase, labelFr: "Services", labelEn: "Hire" },
-  { href: "/contact", icon: Send, labelFr: "Contact", labelEn: "Contact" },
-  { href: "/explore", icon: FlaskConical, labelFr: "Labo", labelEn: "Lab" },
-  { href: "/ai-mode", icon: Terminal, labelFr: "Terminal", labelEn: "Terminal" },
+  { href: "/",           icon: Home,         labelFr: "Accueil",  labelEn: "Home"     },
+  { href: "/projects",   icon: Layers,       labelFr: "Projets",  labelEn: "Projects" },
+  { href: "/skills",     icon: Cpu,          labelFr: "Skills",   labelEn: "Skills"   },
+  { href: "/experience", icon: Clock,        labelFr: "Parcours", labelEn: "Timeline" },
+  { href: "/hire",       icon: Briefcase,    labelFr: "Services", labelEn: "Hire"     },
+  { href: "/contact",    icon: Send,         labelFr: "Contact",  labelEn: "Contact"  },
+  { href: "/explore",    icon: FlaskConical, labelFr: "Labo",     labelEn: "Lab"      },
+  { href: "/ai-mode",    icon: Terminal,     labelFr: "OS",       labelEn: "OS"       },
 ];
 
 export function FloatingNav() {
@@ -20,7 +20,8 @@ export function FloatingNav() {
 
   return (
     <motion.nav
-      className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 flex items-center gap-1 p-1.5 rounded-2xl border border-border/60 backdrop-blur-2xl bg-background/70 shadow-2xl shadow-black/20"
+      className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 flex items-center gap-0.5 sm:gap-1 p-1 sm:p-1.5 rounded-2xl border border-border/60 backdrop-blur-2xl bg-background/80 shadow-2xl shadow-black/30"
+      style={{ maxWidth: "calc(100vw - 24px)" }}
       initial={{ y: 80, opacity: 0, x: "-50%" }}
       animate={{ y: 0, opacity: 1, x: "-50%" }}
       transition={{ delay: 0.4, type: "spring", stiffness: 260, damping: 24 }}
@@ -39,7 +40,7 @@ export function FloatingNav() {
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
               <div
-                className={`relative flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-200 ${
+                className={`relative flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-xl transition-all duration-200 ${
                   isActive
                     ? "text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -48,15 +49,15 @@ export function FloatingNav() {
                 {isActive && (
                   <motion.div
                     layoutId="navBg"
-                    className="absolute inset-0 bg-primary rounded-xl shadow-[0_0_20px_rgba(255,120,0,0.4)]"
+                    className="absolute inset-0 bg-primary rounded-xl shadow-[0_0_16px_rgba(255,120,0,0.4)]"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
-                <Icon className="w-4 h-4 relative z-10" />
+                <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 relative z-10" />
               </div>
 
-              {/* Tooltip */}
-              <div className="absolute bottom-full mb-2 px-2 py-1 rounded-lg bg-foreground text-background text-[10px] font-mono tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-150 pointer-events-none">
+              {/* Tooltip — only on larger screens */}
+              <div className="hidden sm:block absolute bottom-full mb-2 px-2 py-1 rounded-lg bg-foreground text-background text-[10px] font-mono tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-150 pointer-events-none">
                 {label}
               </div>
             </motion.div>

@@ -118,11 +118,11 @@ export function ProjectsPage() {
 
   return (
     <PageTransition>
-      <div className="min-h-[calc(100vh-56px)] px-6 md:px-12 lg:px-20 py-16">
+      <div className="min-h-[calc(100vh-56px)] px-4 sm:px-6 md:px-12 lg:px-20 pt-6 md:pt-16 pb-4">
         <div className="max-w-7xl mx-auto">
 
           {/* Header */}
-          <div className="mb-14">
+          <div className="mb-10 md:mb-14">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}

@@ -154,7 +154,7 @@ export function ExplorePage() {
 
   return (
     <PageTransition>
-      <div className="min-h-[calc(100vh-56px)] px-6 md:px-12 lg:px-20 py-12 flex flex-col">
+      <div className="min-h-[calc(100vh-56px)] px-4 sm:px-6 md:px-12 lg:px-20 pt-6 md:pt-12 pb-4 flex flex-col">
         <div className="max-w-7xl mx-auto w-full flex flex-col flex-1">
 
           {/* Header */}

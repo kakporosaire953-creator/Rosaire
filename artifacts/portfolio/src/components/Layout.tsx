@@ -61,26 +61,23 @@ export function Layout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-background text-foreground">
+    <div className="relative min-h-screen w-full bg-background text-foreground overflow-x-hidden">
       <CustomCursor />
 
       <AnimatePresence mode="wait">
         {loading ? (
           <motion.div
             key="loader"
-            className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-background"
+            className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-background px-6"
             exit={{ opacity: 0, filter: "blur(16px)", scale: 1.05 }}
             transition={{ duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
           >
-            {/* Scan lines */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
                 backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,110,0,0.04) 28px, rgba(255,110,0,0.04) 29px)`,
               }}
             />
-
-            {/* Logo centered */}
             <motion.div
               initial={{ opacity: 0, scale: 0.85, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -89,9 +86,7 @@ export function Layout({ children }: { children: ReactNode }) {
             >
               <Logo size="xl" showWordmark={false} />
             </motion.div>
-
-            {/* Boot lines */}
-            <div className="font-mono text-xs space-y-2 text-left w-80 mb-10">
+            <div className="font-mono text-xs space-y-2 text-left w-full max-w-xs mb-10">
               {bootLines.map((line, i) => (
                 <motion.div
                   key={i}
@@ -104,9 +99,7 @@ export function Layout({ children }: { children: ReactNode }) {
               ))}
               <span className="inline-block w-2 h-3.5 bg-primary blink ml-5" />
             </div>
-
-            {/* Progress bar */}
-            <div className="w-80 h-px bg-border/30 overflow-hidden relative">
+            <div className="w-full max-w-xs h-px bg-border/30 overflow-hidden relative">
               <motion.div
                 className="absolute inset-y-0 left-0 bg-primary"
                 initial={{ width: "0%" }}
@@ -123,30 +116,26 @@ export function Layout({ children }: { children: ReactNode }) {
             transition={{ duration: 0.5 }}
             className="relative"
           >
-            {/* Global neural network canvas */}
             <NeuralBackground />
 
             {/* Top bar */}
-            <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 md:px-10 py-3 border-b border-border/20 backdrop-blur-xl bg-background/60">
+            <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-5 md:px-10 py-3 border-b border-border/20 backdrop-blur-xl bg-background/60">
               <Logo size="sm" showWordmark={true} />
 
-              <div className="flex items-center gap-1 font-mono text-xs text-muted-foreground">
-                <span className="text-primary/40 hidden sm:block">—</span>
-                <span className="hidden sm:block tracking-widest uppercase">
-                  {routeLabel[location] ?? ""}
-                </span>
+              <div className="hidden sm:flex items-center gap-1 font-mono text-xs text-muted-foreground">
+                <span className="text-primary/40">—</span>
+                <span className="tracking-widest uppercase">{routeLabel[location] ?? ""}</span>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <button
                   data-testid="btn-lang-toggle"
                   onClick={() => setLang(lang === "fr" ? "en" : "fr")}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all duration-200 font-mono text-xs text-muted-foreground hover:text-foreground"
+                  className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full border border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all duration-200 font-mono text-xs text-muted-foreground hover:text-foreground"
                 >
                   <Globe className="w-3.5 h-3.5" />
-                  {lang.toUpperCase()}
+                  <span>{lang.toUpperCase()}</span>
                 </button>
-
                 <button
                   data-testid="btn-theme-toggle"
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -157,14 +146,15 @@ export function Layout({ children }: { children: ReactNode }) {
               </div>
             </header>
 
-            <main className="pt-14 relative z-10">
+            {/* Main — pb-24 on mobile to clear floating nav */}
+            <main className="pt-14 pb-24 sm:pb-0 relative z-10">
               {children}
             </main>
 
             <FloatingNav />
             <AIAssistant />
 
-            <div className="fixed bottom-5 right-5 z-40 hidden md:flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground/30 tracking-widest uppercase">
+            <div className="fixed bottom-5 right-5 z-40 hidden lg:flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground/30 tracking-widest uppercase">
               <span className="w-1 h-1 rounded-full bg-primary/40 pulse-dot" />
               Créé au Bénin
             </div>
