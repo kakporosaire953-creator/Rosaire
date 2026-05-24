@@ -3,5 +3,5 @@ set -e
 
 echo "Building API server..."
 cd artifacts/api-server
-npm install
+npm install --legacy-peer-deps
 npm run build
