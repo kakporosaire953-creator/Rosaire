@@ -191,51 +191,62 @@ export function HomePage() {
                 </motion.div>
               </div>
 
-              {/* ── Right column — Logo constellation ── */}
+              {/* ── Right column — Photo Rosaire ── */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.88 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3, duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="hidden lg:flex items-center justify-center"
+                className="hidden lg:flex items-end justify-center"
               >
-                <div className="relative w-80 h-80 flex items-center justify-center">
-                  {/* Outer orbit rings */}
-                  <div className="absolute inset-0 rounded-full border border-primary/8 spin-slow" />
-                  <div className="absolute inset-8 rounded-full border border-secondary/8 spin-slow-reverse" />
-                  <div className="absolute inset-16 rounded-full border border-primary/12 spin-slow" style={{ animationDuration: "15s" }} />
+                <div className="relative">
+                  {/* Glow ambiant derrière la photo */}
+                  <div
+                    className="absolute -inset-8 rounded-full opacity-30 blur-3xl pointer-events-none"
+                    style={{ background: "radial-gradient(ellipse at 60% 80%, hsl(28,96%,54%) 0%, transparent 70%)" }}
+                  />
 
-                  {/* Orbiting dots */}
-                  {[0, 60, 120, 180, 240, 300].map((deg) => (
-                    <div
-                      key={deg}
-                      className="absolute w-1.5 h-1.5 rounded-full bg-primary/40"
-                      style={{
-                        top:  `calc(50% + ${Math.sin((deg * Math.PI) / 180) * 130}px - 3px)`,
-                        left: `calc(50% + ${Math.cos((deg * Math.PI) / 180) * 130}px - 3px)`,
-                      }}
-                    />
-                  ))}
+                  {/* Ligne décorative verticale */}
+                  <div className="absolute left-0 top-8 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
 
-                  {/* Secondary orbit dots */}
-                  {[30, 90, 150, 210, 270, 330].map((deg) => (
-                    <div
-                      key={`s-${deg}`}
-                      className="absolute w-1 h-1 rounded-full bg-secondary/30"
-                      style={{
-                        top:  `calc(50% + ${Math.sin((deg * Math.PI) / 180) * 95}px - 2px)`,
-                        left: `calc(50% + ${Math.cos((deg * Math.PI) / 180) * 95}px - 2px)`,
-                      }}
-                    />
-                  ))}
+                  {/* Étiquette flottante haut */}
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.9, duration: 0.5 }}
+                    className="absolute -top-3 left-8 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-background/80 backdrop-blur-sm shadow-lg"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot" />
+                    <span className="font-mono text-[10px] text-muted-foreground tracking-widest uppercase">Cotonou, Bénin</span>
+                  </motion.div>
 
-                  {/* Center: the Logo badge — large */}
-                  <div className="relative z-10 flex flex-col items-center gap-4">
-                    <Logo size="xl" showWordmark={false} />
-                    <div className="flex flex-col items-center gap-1">
-                      <div className="font-mono text-[10px] text-muted-foreground tracking-[0.3em] uppercase">Cotonou · Bénin</div>
-                      <div className="font-mono text-[9px] text-primary/50 tracking-[0.2em]">v2.0 — RK_OS</div>
+                  {/* Photo principale */}
+                  <motion.img
+                    src="/assets/rosaire-hero.png"
+                    alt="Rosaire KAKPO — Frontend Developer"
+                    className="relative z-10 w-[320px] xl:w-[380px] object-contain drop-shadow-2xl"
+                    style={{
+                      filter: "drop-shadow(0 24px 60px rgba(255,110,0,0.20)) drop-shadow(0 4px 20px rgba(0,0,0,0.5))",
+                      maxHeight: "520px",
+                    }}
+                    whileHover={{ scale: 1.02, y: -4 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                  />
+
+                  {/* Badge RK.OS version flottant bas-droite */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.1, duration: 0.5 }}
+                    className="absolute bottom-4 -right-4 z-20 flex items-center gap-2 px-3 py-2 rounded-xl border border-border/50 bg-background/90 backdrop-blur-sm shadow-xl"
+                  >
+                    <div className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center">
+                      <span className="font-mono text-[9px] text-primary font-bold">RK</span>
                     </div>
-                  </div>
+                    <div>
+                      <div className="font-display font-bold text-xs text-foreground leading-none">v2.0</div>
+                      <div className="font-mono text-[9px] text-muted-foreground leading-none mt-0.5">African Futurism</div>
+                    </div>
+                  </motion.div>
                 </div>
               </motion.div>
 
