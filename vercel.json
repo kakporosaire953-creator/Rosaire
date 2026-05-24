@@ -1,4 +1,5 @@
 {
   "buildCommand": "bash build.sh",
+  "installCommand": "npm install --legacy-peer-deps",
   "outputDirectory": "artifacts/api-server/dist"
 }
