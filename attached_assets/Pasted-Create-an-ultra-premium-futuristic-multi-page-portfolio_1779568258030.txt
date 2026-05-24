@@ -1,0 +1,351 @@
+Create an ultra-premium futuristic multi-page portfolio experience for “Rosaire KAKPO”, a frontend developer from Benin specialized in E-commerce, AI experiences, UX Design and futuristic African digital ecosystems.
+
+IMPORTANT:
+The portfolio language MUST be written primarily in French.
+However, the website must include a complete bilingual translation system:
+- French 🇫🇷
+- English 🇺🇸
+
+The user must be able to switch language instantly with smooth animated transitions.
+
+Also include:
+- Dark Mode
+- Light Mode
+with cinematic transitions, intelligent theme persistence and adaptive futuristic UI colors.
+
+The website must NOT be a single-page portfolio.
+Create a real immersive multi-page application with advanced route transitions and cinematic navigation.
+
+ROUTES STRUCTURE:
+- /                → Futuristic AI Landing Experience
+- /projects        → Holographic Projects Universe
+- /skills          → Interactive AI Skill Matrix
+- /experience      → Cinematic Career Timeline
+- /contact         → Futuristic Communication Center
+- /hire            → Premium Client Acquisition Experience
+- /explore         → Experimental Interactive Playground
+- /ai-mode         → Full AI Operating System Interface
+
+GLOBAL EXPERIENCE:
+The portfolio must feel like:
+- a futuristic AI operating system
+- a luxury experimental digital experience
+- an elite African tech ecosystem from the future
+
+The experience should emotionally impress visitors within seconds.
+
+STYLE DIRECTION:
+Mix:
+- futuristic AI dashboard
+- cinematic cyberpunk aesthetics
+- immersive WebGL experiences
+- holographic UI systems
+- premium glassmorphism
+- African futurism
+- spatial interfaces
+- advanced motion design
+- cinematic transitions
+- ultra-smooth interactions
+- luxury startup aesthetics
+
+The design must feel:
+- immersive
+- futuristic
+- cinematic
+- emotional
+- luxurious
+- interactive
+- intelligent
+- memorable
+- award-winning
+
+DESIGN SYSTEM:
+Use:
+- deep black backgrounds
+- elegant white futuristic light mode
+- orange/gold/electric blue accents
+- glowing holographic borders
+- cinematic gradients
+- ambient lighting
+- glassmorphism layers
+- animated grids
+- dynamic particles
+- soft neon glow
+- premium typography
+- reactive UI lighting
+- advanced micro-interactions
+- subtle noise textures
+- fluid hover states
+
+TECH STACK:
+- Next.js App Router
+- React
+- Tailwind CSS
+- Framer Motion
+- GSAP
+- Three.js / React Three Fiber
+- Lenis smooth scrolling
+- WebGL shaders
+- Dynamic particles
+- AI-powered interactions
+
+LANGUAGE SYSTEM:
+Create a professional internationalization system:
+- default language: French
+- second language: English
+- animated language switcher
+- translation persistence with localStorage
+- dynamic content translation
+- smooth text transition animations
+- futuristic language selector
+- all pages fully translated
+
+THEME SYSTEM:
+Create:
+- Dark Mode
+- Light Mode
+
+Features:
+- smooth animated theme transitions
+- futuristic toggle switch
+- adaptive UI colors
+- dynamic glow adaptation
+- automatic system theme detection
+- localStorage persistence
+- different ambient lighting for each theme
+- premium transitions between themes
+
+LANDING PAGE (/):
+The homepage must act as a futuristic portal into Rosaire’s digital universe.
+
+Features:
+- immersive cinematic hero section
+- AI scanning animations
+- holographic 3D avatar
+- neural network background
+- interactive particles reacting to cursor
+- futuristic intro sequence
+- floating AI assistant orb
+- cinematic reveal effects
+- rotating geometric WebGL objects
+- holographic interface panels
+- terminal typing effect
+- animated sound-wave visualizer
+- ambient futuristic glow
+
+Hero Text:
+“Rosaire KAKPO”
+“Développeur Frontend • Créateur d’Expériences IA • Architecte E-commerce pour l’Afrique”
+
+Subtext:
+“Je crée des expériences digitales futuristes et des écosystèmes e-commerce premium pensés pour la nouvelle génération d’innovation africaine.”
+
+Add:
+- glowing CTA buttons
+- magnetic hover effects
+- AI terminal prompts
+- animated route previews
+- intelligent navigation suggestions
+
+PROJECTS PAGE (/projects):
+Transform projects into a futuristic holographic universe.
+
+Projects:
+1. Apple Confidence
+2. SkillBridge
+3. Campusly
+4. Gbéto
+5. E-Architect SARL
+
+For each project:
+- holographic project card
+- immersive fullscreen preview
+- live animated interactions
+- cinematic transitions
+- AI-generated project insights
+- floating metrics
+- animated tech stack
+- futuristic hover effects
+- interactive storytelling
+
+Add:
+- AI project filtering
+- futuristic search system
+- 3D project exploration
+- animated categories
+- interactive case studies
+
+SKILLS PAGE (/skills):
+Create an interactive AI skill matrix.
+
+Features:
+- animated neural network visualization
+- holographic skill charts
+- realtime animated statistics
+- floating expertise cards
+- futuristic dashboard
+- interactive ecosystem visualization
+- AI-generated capability analysis
+- animated frontend/backend relationships
+
+Skills:
+- React
+- Next.js
+- Tailwind CSS
+- Firebase
+- Supabase
+- UX Design
+- E-commerce
+- AI Integrations
+- SEO
+- APIs
+
+EXPERIENCE PAGE (/experience):
+Build a cinematic storytelling timeline.
+
+Features:
+- animated timeline
+- glowing milestones
+- immersive scroll storytelling
+- AI-generated narration
+- floating certifications
+- futuristic achievement system
+- interactive educational journey
+
+Include:
+- MIABE Hackathon
+- Les Cours Sonou
+- Arduino Days participation
+- African digital innovation specialization
+
+CONTACT PAGE (/contact):
+Create a futuristic communication center.
+
+Features:
+- holographic contact cards
+- animated WhatsApp integration
+- live online status
+- futuristic messaging terminal
+- intelligent contact form
+- realtime typing animations
+- animated social media links
+- floating communication panels
+
+HIRE PAGE (/hire):
+Transform this into a luxury client acquisition experience.
+
+Features:
+- cinematic onboarding
+- premium service cards
+- animated workflow
+- intelligent recommendations
+- immersive proposal interface
+- futuristic pricing sections
+- luxury startup visuals
+
+Services:
+- Frontend Development
+- E-commerce Development
+- Marketplace Creation
+- AI Integrations
+- UX Design
+- African Digital Product Consulting
+
+EXPLORE PAGE (/explore):
+This page must be experimental and mind-blowing.
+
+Features:
+- WebGL playground
+- interactive galaxy navigation
+- realtime visual experiments
+- AI-generated particles
+- immersive futuristic scenes
+- advanced shaders
+- floating experimental interfaces
+- hidden interactions
+- motion-reactive animations
+- cinematic visualizer
+
+This page should feel like:
+“A futuristic experimental digital laboratory.”
+
+AI MODE PAGE (/ai-mode):
+Create a full futuristic AI operating system interface.
+
+Features:
+- fullscreen AI UI
+- interactive terminal
+- intelligent command system
+- floating AI assistant
+- futuristic system panels
+- realtime animations
+- cybernetic scanner overlays
+- holographic windows
+- virtual operating system experience
+- animated AI responses
+
+Commands:
+- /projects
+- /skills
+- /experience
+- /contact
+- /hire
+- /explore
+- /about
+- /resume
+- /github
+- /linkedin
+
+SPECIAL PREMIUM FEATURES:
+- fullscreen cinematic route transitions
+- AI-generated interface states
+- dynamic ambient lighting
+- layered glassmorphism
+- futuristic reflections
+- interactive world map focused on Africa
+- neural network backgrounds
+- advanced cursor physics
+- realtime UI reactions
+- floating navigation dock
+- VS Code-like command palette
+- secret developer mode
+- hidden easter eggs
+- animated loading sequence
+- immersive scroll effects
+- dynamic page distortions
+- intelligent hover physics
+- motion blur transitions
+
+AFRICAN FUTURISM IDENTITY:
+Subtly integrate:
+- futuristic African startup aesthetics
+- luxury African tech ecosystem visuals
+- modern Cotonou / Lagos innovation vibes
+- premium African digital culture
+
+Avoid clichés.
+Everything must feel:
+- elegant
+- futuristic
+- minimal
+- premium
+- intelligent
+
+IMPORTANT:
+The portfolio must feel like:
+“An elite futuristic AI operating system created by a genius African frontend engineer from the future.”
+
+FINAL RESULT MUST BE:
+- highly immersive
+- emotionally impressive
+- technically advanced
+- visually unforgettable
+- cinematic
+- futuristic
+- luxurious
+- experimental
+- interactive
+- Awwwards-level quality
+
+DO NOT create a simple portfolio.
+Create a digital masterpiece.
