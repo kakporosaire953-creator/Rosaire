@@ -58,6 +58,9 @@ export function Layout({ children }: { children: ReactNode }) {
     "/hire": "HIRE",
     "/explore": "EXPLORE",
     "/ai-mode": "AI_MODE",
+    // AJOUT — Labels nouvelles routes
+    "/hackathons": "HACKATHONS",
+    "/gallery": "GALLERY",
   };
 
   return (

@@ -1,17 +1,21 @@
+// AJOUT — FloatingNav mise à jour avec Hackathons & Galerie
 import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
-import { Home, Layers, Cpu, Clock, Send, Briefcase, FlaskConical, Terminal } from "lucide-react";
+import { Home, Layers, Cpu, Clock, Send, Briefcase, FlaskConical, Terminal, Trophy, Images } from "lucide-react";
 import { useTranslation } from "@/context/TranslationContext";
 
 const links = [
-  { href: "/",           icon: Home,         labelFr: "Accueil",  labelEn: "Home"     },
-  { href: "/projects",   icon: Layers,       labelFr: "Projets",  labelEn: "Projects" },
-  { href: "/skills",     icon: Cpu,          labelFr: "Skills",   labelEn: "Skills"   },
-  { href: "/experience", icon: Clock,        labelFr: "Parcours", labelEn: "Timeline" },
-  { href: "/hire",       icon: Briefcase,    labelFr: "Services", labelEn: "Hire"     },
-  { href: "/contact",    icon: Send,         labelFr: "Contact",  labelEn: "Contact"  },
-  { href: "/explore",    icon: FlaskConical, labelFr: "Labo",     labelEn: "Lab"      },
-  { href: "/ai-mode",    icon: Terminal,     labelFr: "OS",       labelEn: "OS"       },
+  { href: "/",            icon: Home,         labelFr: "Accueil",      labelEn: "Home"        },
+  { href: "/projects",    icon: Layers,       labelFr: "Projets",      labelEn: "Projects"    },
+  { href: "/skills",      icon: Cpu,          labelFr: "Skills",       labelEn: "Skills"      },
+  { href: "/experience",  icon: Clock,        labelFr: "Parcours",     labelEn: "Timeline"    },
+  { href: "/hire",        icon: Briefcase,    labelFr: "Services",     labelEn: "Hire"        },
+  { href: "/contact",     icon: Send,         labelFr: "Contact",      labelEn: "Contact"     },
+  // AJOUT — Nouveaux liens nav
+  { href: "/hackathons",  icon: Trophy,       labelFr: "Hackathons",   labelEn: "Hackathons"  },
+  { href: "/gallery",     icon: Images,       labelFr: "Galerie",      labelEn: "Gallery"     },
+  { href: "/explore",     icon: FlaskConical, labelFr: "Labo",         labelEn: "Lab"         },
+  { href: "/ai-mode",     icon: Terminal,     labelFr: "OS",           labelEn: "OS"          },
 ];
 
 export function FloatingNav() {
@@ -20,8 +24,8 @@ export function FloatingNav() {
 
   return (
     <motion.nav
-      className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 flex items-center gap-0.5 sm:gap-1 p-1 sm:p-1.5 rounded-2xl border border-border/60 backdrop-blur-2xl bg-background/80 shadow-2xl shadow-black/30"
-      style={{ maxWidth: "calc(100vw - 24px)" }}
+      className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 flex items-center gap-0.5 p-1 rounded-2xl border border-border/60 backdrop-blur-2xl bg-background/80 shadow-2xl shadow-black/30 overflow-x-auto nav-no-scrollbar"
+      style={{ maxWidth: "calc(100vw - 20px)" }}
       initial={{ y: 80, opacity: 0, x: "-50%" }}
       animate={{ y: 0, opacity: 1, x: "-50%" }}
       transition={{ delay: 0.4, type: "spring", stiffness: 260, damping: 24 }}
@@ -35,12 +39,12 @@ export function FloatingNav() {
           <Link key={link.href} href={link.href}>
             <motion.div
               data-testid={`nav-${link.href.replace("/", "") || "home"}`}
-              className="relative flex flex-col items-center justify-center group"
+              className="relative flex flex-col items-center justify-center group shrink-0"
               whileHover={{ y: -2 }}
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
               <div
-                className={`relative flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-xl transition-all duration-200 ${
+                className={`relative flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-xl transition-all duration-200 ${
                   isActive
                     ? "text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -49,14 +53,14 @@ export function FloatingNav() {
                 {isActive && (
                   <motion.div
                     layoutId="navBg"
-                    className="absolute inset-0 bg-primary rounded-xl shadow-[0_0_16px_rgba(255,120,0,0.4)]"
+                    className="absolute inset-0 bg-primary rounded-xl shadow-[0_0_14px_rgba(255,120,0,0.4)]"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
-                <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 relative z-10" />
+                <Icon className="w-3 h-3 sm:w-4 sm:h-4 relative z-10" />
               </div>
 
-              {/* Tooltip — only on larger screens */}
+              {/* Tooltip — desktop only */}
               <div className="hidden sm:block absolute bottom-full mb-2 px-2 py-1 rounded-lg bg-foreground text-background text-[10px] font-mono tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-150 pointer-events-none">
                 {label}
               </div>
