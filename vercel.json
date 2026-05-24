@@ -1,5 +1,4 @@
 {
-  "buildCommand": "bash -c 'cd artifacts/api-server && npm run build'",
-  "installCommand": "bash -c 'cd artifacts/api-server && npm install'",
+  "buildCommand": "bash build.sh",
   "outputDirectory": "artifacts/api-server/dist"
 }
