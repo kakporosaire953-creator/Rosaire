@@ -1,6 +1,6 @@
 {
-  "buildCommand": "pnpm run build",
-  "installCommand": "pnpm install",
+  "buildCommand": "cd artifacts/api-server && npm run build",
+  "installCommand": "cd artifacts/api-server && npm install",
   "outputDirectory": "artifacts/api-server/dist",
   "rewrites": [
     {
